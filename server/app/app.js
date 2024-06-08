@@ -11,7 +11,7 @@ const commentRoutes = require("../routes/comment.route.js");
 const app = express();
 
 
-const __dirname = path.resolve();
+
 
 
 app.use(express.json());
