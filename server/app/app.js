@@ -12,18 +12,14 @@ const app = express();
 app.use(express.json());
 app.use(cookieParser());
 
-const  __dirName = path.resolve();
+
 
 app.use("/api/user", userRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/post", postRoutes);
 app.use("/api/comment", commentRoutes);
 
-app.use(express.static(path.join( __dirName, '/frontend/dist')));
 
-app.get('*', (req, res) =>{
-    res.sendFile(path.join( __dirName, 'frontend', 'dist', 'index.html'))
-})
 
 //Middleware for error
 app.use((err, req, res, next) => {
