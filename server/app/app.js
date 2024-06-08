@@ -3,23 +3,30 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
 const path = require("path");
+const { fileURLToPath } = require('url');
 const userRoutes = require("../routes/user.route");
 const authRoutes = require("../routes/auth.route");
 const postRoutes = require("../routes/post.route");
 const commentRoutes = require("../routes/comment.route.js");
 const app = express();
 
+
+const __filename = fileURLToPath(__filename)
+const __dirname = path.dirname(__filename)
+console.log(__dirname)
+
 app.use(express.json());
 app.use(cookieParser());
 
 
-
+//Api route
 app.use("/api/user", userRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/post", postRoutes);
 app.use("/api/comment", commentRoutes);
 
-
+//Use the client app
+//app.use(express.static)
 
 //Middleware for error
 app.use((err, req, res, next) => {
@@ -32,6 +39,7 @@ app.use((err, req, res, next) => {
   });
 });
 
+//Connect to MongoDB
 const MongoDB_uri = process.env.MongoDB_URL;
 mongoose
   .connect(MongoDB_uri)
