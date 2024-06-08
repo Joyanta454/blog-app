@@ -11,9 +11,8 @@ const commentRoutes = require("../routes/comment.route.js");
 const app = express();
 
 
-const __filename = fileURLToPath(__filename)
-const __dirname = path.dirname(__filename)
-console.log(__dirname)
+const __dirname = path.resolve();
+
 
 app.use(express.json());
 app.use(cookieParser());
@@ -26,7 +25,12 @@ app.use("/api/post", postRoutes);
 app.use("/api/comment", commentRoutes);
 
 //Use the client app
-//app.use(express.static)
+app.use(express.static(path.join(__dirname, '/client/dist')));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
+});
+
 
 //Middleware for error
 app.use((err, req, res, next) => {
